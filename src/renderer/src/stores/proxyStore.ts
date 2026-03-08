@@ -165,6 +165,7 @@ export const useProxyStore = create<ProxyState>((set, get) => ({
           proxyConfig: {
             ...DEFAULT_PROXY_CONFIG,
             port: config.proxyPort,
+            host: config.proxyHost || '127.0.0.1',
             timeout: config.requestTimeout,
             retryCount: config.retryCount,
           },

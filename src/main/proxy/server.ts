@@ -20,6 +20,7 @@ export class ProxyServer {
   private router: Router
   private server: HttpServer | null = null
   private port: number = 8080
+  private host: string = '127.0.0.1'
 
   constructor() {
     this.app = new Koa()
@@ -213,22 +214,24 @@ export class ProxyServer {
   /**
    * Start server
    */
-  async start(port?: number): Promise<boolean> {
+  async start(port?: number, host?: string): Promise<boolean> {
     if (this.server) {
       return false
     }
 
     this.port = port || proxyStatusManager.getPort()
+    this.host = host || proxyStatusManager.getHost()
     
     sessionManager.initialize()
 
     return new Promise((resolve) => {
       try {
-        this.server = this.app.listen(this.port, '0.0.0.0', () => {
+        this.server = this.app.listen(this.port, this.host, () => {
           proxyStatusManager.start()
           proxyStatusManager.setPort(this.port)
+          proxyStatusManager.setHost(this.host)
 
-          storeManager.addLog('info', `Proxy server started successfully, port: ${this.port}`)
+          storeManager.addLog('info', `Proxy server started successfully, listening on ${this.host}:${this.port}`)
 
           resolve(true)
         })
@@ -284,9 +287,9 @@ export class ProxyServer {
   /**
    * Restart server
    */
-  async restart(port?: number): Promise<boolean> {
+  async restart(port?: number, host?: string): Promise<boolean> {
     await this.stop()
-    return this.start(port)
+    return this.start(port, host)
   }
 
   /**

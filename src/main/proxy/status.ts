@@ -170,6 +170,20 @@ export class ProxyStatusManager {
   setPort(port: number): void {
     this.config.port = port
   }
+
+  /**
+   * Get host
+   */
+  getHost(): string {
+    return this.config.host
+  }
+
+  /**
+   * Set host
+   */
+  setHost(host: string): void {
+    this.config.host = host
+  }
 }
 
 export const proxyStatusManager = new ProxyStatusManager()

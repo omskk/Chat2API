@@ -171,6 +171,8 @@ export interface ModelMapping {
 export interface AppConfig {
   /** Proxy service port */
   proxyPort: number
+  /** Proxy service bind address */
+  proxyHost: string
   /** Load balance strategy */
   loadBalanceStrategy: LoadBalanceStrategy
   /** Model mapping configuration */
@@ -447,6 +449,7 @@ export const DEFAULT_TOOL_PROMPT_CONFIG: ToolPromptConfig = {
  */
 export const DEFAULT_CONFIG: AppConfig = {
   proxyPort: 8080,
+  proxyHost: '127.0.0.1',
   loadBalanceStrategy: 'round-robin',
   modelMappings: {},
   theme: 'system',

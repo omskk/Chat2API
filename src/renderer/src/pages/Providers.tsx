@@ -22,7 +22,6 @@ import type {
   BuiltinProviderConfig,
   CustomProviderFormData,
   Account,
-  AccountStatus,
 } from '@/types/electron'
 import { FilterType, StatusFilter } from '@/components/providers/ProviderFilter'
 import { ScrollArea } from '@/components/ui/scroll-area'
@@ -500,33 +499,6 @@ export function Providers() {
     setViewMode('account-detail')
   }
 
-  const handleAccountStatusChange = async (id: string, status: AccountStatus) => {
-    try {
-      await window.electronAPI.accounts.update(id, { status })
-      store.updateAccount(id, { status })
-      
-      if (store.selectedProviderId) {
-        const providerAccounts = store.getAccountsByProvider(store.selectedProviderId)
-        store.updateAccountCount(
-          store.selectedProviderId,
-          providerAccounts.length,
-          providerAccounts.filter(a => a.status === 'active').length
-        )
-      }
-      
-      toast({
-        title: t('providers.statusUpdated'),
-        description: t('providers.accountStatusChanged', { status }),
-      })
-    } catch (error) {
-      toast({
-        title: t('providers.updateFailed'),
-        description: t('providers.operationFailed'),
-        variant: 'destructive',
-      })
-    }
-  }
-
   const handleBackToProviders = () => {
     setViewMode('providers')
     store.setSelectedProviderId(null)
@@ -580,7 +552,6 @@ export function Providers() {
           }}
           onDelete={() => handleDeleteAccount(selectedAccount.id)}
           onValidate={() => handleValidateAccount(selectedAccount.id)}
-          onStatusChange={(status) => handleAccountStatusChange(selectedAccount.id, status)}
         />
       </div>
     )

@@ -157,6 +157,7 @@ export function ProxyConfigForm({ onConfigChange }: ProxyConfigFormProps) {
     
     const success = await saveAppConfig({
       proxyPort: newConfig.port,
+      proxyHost: newConfig.host,
     })
 
     if (success) {

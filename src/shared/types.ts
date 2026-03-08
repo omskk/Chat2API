@@ -85,6 +85,7 @@ export interface ApiKey {
 
 export interface AppConfig {
   proxyPort: number
+  proxyHost: string
   loadBalanceStrategy: LoadBalanceStrategy
   modelMappings: Record<string, ModelMapping>
   theme: Theme
@@ -198,23 +199,4 @@ export interface SessionConfig {
   maxMessagesPerSession: number
   deleteAfterTimeout: boolean
   maxSessionsPerAccount: number
-}
-
-export interface AppConfig {
-  proxyPort: number
-  loadBalanceStrategy: LoadBalanceStrategy
-  modelMappings: Record<string, ModelMapping>
-  theme: Theme
-  autoStart: boolean
-  autoStartProxy: boolean
-  minimizeToTray: boolean
-  logLevel: 'debug' | 'info' | 'warn' | 'error'
-  logRetentionDays: number
-  requestTimeout: number
-  retryCount: number
-  apiKeys: ApiKey[]
-  enableApiKey: boolean
-  oauthProxyMode: 'system' | 'none'
-  sessionConfig: SessionConfig
-  toolPromptConfig: ToolPromptConfig
 }

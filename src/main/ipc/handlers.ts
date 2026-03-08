@@ -30,9 +30,10 @@ export async function registerIpcHandlers(mainWindow: BrowserWindow | null): Pro
   if (config.autoStartProxy) {
     console.log('[App] Auto-starting proxy service...')
     const proxyPort = config.proxyPort
+    const proxyHost = config.proxyHost || '127.0.0.1'
     try {
       proxyServer = new ProxyServer()
-      const success = await proxyServer.start(proxyPort)
+      const success = await proxyServer.start(proxyPort, proxyHost)
       if (success) {
         proxyStartTime = Date.now()
         console.log('[App] Proxy service auto-started successfully, port:', proxyPort)
@@ -62,9 +63,10 @@ export async function registerIpcHandlers(mainWindow: BrowserWindow | null): Pro
 
       const config = storeManager.getConfig()
       const proxyPort = port || config.proxyPort
+      const proxyHost = config.proxyHost || '127.0.0.1'
 
       proxyServer = new ProxyServer()
-      const success = await proxyServer.start(proxyPort)
+      const success = await proxyServer.start(proxyPort, proxyHost)
       
       if (success) {
         proxyStartTime = Date.now()
