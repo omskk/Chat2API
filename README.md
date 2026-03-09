@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square&logo=github" alt="Release">
+  <img src="https://img.shields.io/badge/Release-v1.1.0-blue?style=flat-square&logo=github" alt="Release">
   <img src="https://img.shields.io/badge/License-GPL--3.0-blue?style=flat-square" alt="License">
   <br>
   <a href="https://www.electronjs.org/"><img src="https://img.shields.io/badge/Electron-33+-47848F?style=flat-square&logo=electron&logoColor=white" alt="Electron"></a>
@@ -30,6 +30,10 @@
 
 - OpenAI Compatible API: Provides standard OpenAI-compatible API endpoints for seamless integration
 - Multi-Provider Support: Connect DeepSeek, GLM, Kimi, MiniMax, Qwen, Z.ai and more
+- 🆕 Multi-turn Conversation: Full support for multi-turn dialogue with session management and context retention
+- 🆕 Function Calling Support: Universal tool calling capability for all models via prompt engineering, compatible with Cherry Studio, Kilo Code, and other clients
+- 🆕 Model Mapping: Flexible model name mapping with wildcard support and preferred provider/account selection
+- 🆕 Custom Parameters: Support for custom HTTP headers to enable web search, thinking mode, and deep research features
 - Dashboard Monitoring: Real-time request traffic, token usage, and success rates
 - API Key Management: Generate and manage keys for your local proxy
 - Model Management: View and manage available models from all providers

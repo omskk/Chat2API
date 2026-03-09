@@ -5,7 +5,7 @@
 </p>
 
 <p align="center">
-  <img src="https://img.shields.io/badge/Release-v1.0.0-blue?style=flat-square&logo=github" alt="Release">
+  <img src="https://img.shields.io/badge/Release-v1.1.0-blue?style=flat-square&logo=github" alt="Release">
   <img src="https://img.shields.io/badge/License-GPL--3.0-blue?style=flat-square" alt="License">
   <br>
   <a href="https://www.electronjs.org/"><img src="https://img.shields.io/badge/Electron-33+-47848F?style=flat-square&logo=electron&logoColor=white" alt="Electron"></a>
@@ -30,6 +30,10 @@
 
 - OpenAI 兼容 API：提供标准 OpenAI 兼容接口，无缝对接现有工具
 - 多服务商支持：支持 DeepSeek、GLM、Kimi、MiniMax、Qwen、Z.ai 等
+- 🆕 多轮对话支持：完整支持多轮对话，提供会话管理和上下文保持功能
+- 🆕 工具调用支持：通过提示词工程为所有模型提供通用工具调用能力，兼容 Cherry Studio、Kilo Code 等客户端
+- 🆕 模型映射：灵活的模型名称映射，支持通配符和首选服务商/账户选择
+- 🆕 自定义参数：支持自定义 HTTP Header 开启联网搜索、深度思考、深度研究等功能
 - 仪表盘监控：实时请求流量、Token 使用量和成功率统计
 - API Key 管理：为本地代理生成和管理密钥
 - 模型管理：查看和管理所有服务商的可用模型
