@@ -195,8 +195,8 @@ export function LogDetailModal({ log, open, onClose }: LogDetailModalProps) {
             {log.userInput && (
               <div>
                 <label className="text-sm text-muted-foreground">{t('logs.userInput')}</label>
-                <div className="mt-1 p-3 bg-muted/50 rounded-lg">
-                  <p className="text-sm">{log.userInput}</p>
+                <div className="mt-1 p-3 bg-muted/50 rounded-lg overflow-auto max-h-[200px]">
+                  <p className="text-sm whitespace-pre-wrap break-all">{log.userInput}</p>
                 </div>
               </div>
             )}
@@ -204,8 +204,8 @@ export function LogDetailModal({ log, open, onClose }: LogDetailModalProps) {
             {log.error && (
               <div>
                 <label className="text-sm text-red-500">Error</label>
-                <div className="mt-1 p-3 bg-red-500/10 rounded-lg border border-red-500/20">
-                  <p className="text-sm text-red-600">{log.error}</p>
+                <div className="mt-1 p-3 bg-red-500/10 rounded-lg border border-red-500/20 overflow-auto max-h-[200px]">
+                  <p className="text-sm text-red-600 whitespace-pre-wrap break-all">{log.error}</p>
                 </div>
               </div>
             )}

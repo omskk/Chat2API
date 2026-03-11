@@ -171,8 +171,8 @@ export function RequestLogDetail({ log, onClose }: RequestLogDetailProps) {
           <TabsContent value="user" className="mt-4">
             <ScrollArea className="h-96">
               {log.userInput ? (
-                <div className="p-4 bg-muted rounded-lg">
-                  <p className="text-sm whitespace-pre-wrap">{log.userInput}</p>
+                <div className="p-4 bg-muted rounded-lg overflow-auto">
+                  <p className="text-sm whitespace-pre-wrap break-all">{log.userInput}</p>
                 </div>
               ) : (
                 <div className="text-muted-foreground text-center py-8">
@@ -186,13 +186,13 @@ export function RequestLogDetail({ log, onClose }: RequestLogDetailProps) {
             <ScrollArea className="h-96">
               {log.errorMessage ? (
                 <div className="space-y-4">
-                  <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg">
-                    <p className="text-sm text-red-500 font-medium">{log.errorMessage}</p>
+                  <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg overflow-auto">
+                    <p className="text-sm text-red-500 font-medium whitespace-pre-wrap break-all">{log.errorMessage}</p>
                   </div>
                   {log.errorStack && (
                     <div>
                       <label className="text-sm font-medium text-muted-foreground">Stack Trace</label>
-                      <pre className="mt-2 text-xs bg-muted p-4 rounded-lg overflow-auto">
+                      <pre className="mt-2 text-xs bg-muted p-4 rounded-lg overflow-auto whitespace-pre-wrap break-all">
                         {log.errorStack}
                       </pre>
                     </div>
