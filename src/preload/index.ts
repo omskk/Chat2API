@@ -282,8 +282,11 @@ interface RequestLogEntry {
   accountName?: string
   requestBody?: string
   userInput?: string
+  webSearch?: boolean
+  reasoningEffort?: 'low' | 'medium' | 'high'
   responseStatus: number
   responsePreview?: string
+  responseBody?: string
   latency: number
   isStream: boolean
   errorMessage?: string

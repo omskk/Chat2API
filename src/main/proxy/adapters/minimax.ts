@@ -1235,7 +1235,15 @@ export class MiniMaxStreamHandler {
         id: '',
         model: this.model,
         object: 'chat.completion',
-        choices: [{ index: 0, message: { role: 'assistant', content: '' }, finish_reason: 'stop' }],
+        choices: [{ 
+          index: 0, 
+          message: { 
+            role: 'assistant', 
+            content: '', 
+            reasoning_content: '' 
+          }, 
+          finish_reason: 'stop' 
+        }],
         usage: { prompt_tokens: 1, completion_tokens: 1, total_tokens: 2 },
         created: this.created,
       }
@@ -1253,10 +1261,14 @@ export class MiniMaxStreamHandler {
             }
             const { messageResult } = _data || {}
             if (event.event === 'message_result' && messageResult) {
-              const { chatID, chat_id, isEnd, content: text } = messageResult
+              const { chatID, chat_id, isEnd, content: text, extra_info } = messageResult
               const finalChatId = chat_id || chatID
               if (!data.id && finalChatId) data.id = finalChatId
               if (isEnd !== 0 && text) data.choices[0].message.content += text
+              // Extract thinking_content from extra_info
+              if (extra_info?.thinking_content) {
+                data.choices[0].message.reasoning_content = extra_info.thinking_content
+              }
               if (isEnd === 0) resolve(data)
             }
           } catch (err) {

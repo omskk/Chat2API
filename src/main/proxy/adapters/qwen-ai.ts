@@ -598,6 +598,7 @@ export class QwenAiStreamHandler {
       }
 
       let reasoningText = ''
+      let summaryText = ''
       let resolved = false
 
       const resolveOnce = (value: any) => {
@@ -634,13 +635,24 @@ export class QwenAiStreamHandler {
 
               if (phase === 'think' && status !== 'finished') {
                 reasoningText += content
+              } else if (phase === 'thinking_summary') {
+                // Handle thinking_summary phase - extract summary content
+                const extra = delta.extra || {}
+                if (extra.summary_thought?.content) {
+                  const newSummary = extra.summary_thought.content.join('\n')
+                  if (newSummary && newSummary.length > summaryText.length) {
+                    summaryText = newSummary
+                  }
+                }
               } else if (phase === 'answer') {
                 if (content) {
                   data.choices[0].message.content += content
                 }
                 if (status === 'finished') {
-                  if (reasoningText) {
-                    data.choices[0].message.reasoning_content = reasoningText
+                  // Use reasoningText or summaryText for reasoning_content
+                  const finalReasoning = reasoningText || summaryText
+                  if (finalReasoning) {
+                    data.choices[0].message.reasoning_content = finalReasoning
                   }
 
                   if (this.onEnd && this.chatId) {
@@ -666,8 +678,10 @@ export class QwenAiStreamHandler {
         rejectOnce(err)
       })
       stream.once('close', () => {
-        if (reasoningText) {
-          data.choices[0].message.reasoning_content = reasoningText
+        // Use reasoningText or summaryText for reasoning_content
+        const finalReasoning = reasoningText || summaryText
+        if (finalReasoning) {
+          data.choices[0].message.reasoning_content = finalReasoning
         }
         resolveOnce(data)
       })

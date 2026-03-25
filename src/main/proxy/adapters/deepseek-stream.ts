@@ -383,6 +383,11 @@ export class DeepSeekStreamHandler {
             }
 
             if (parsed.v && typeof parsed.v === 'object' && parsed.v.response) {
+              const isThinkingNow = parsed.v.response.thinking_enabled
+              if (isThinkingNow !== undefined) {
+                currentPath = isThinkingNow ? 'thinking' : 'content'
+              }
+              
               const fragments = parsed.v.response.fragments
               if (Array.isArray(fragments) && fragments.length > 0) {
                 for (const fragment of fragments) {
@@ -390,10 +395,8 @@ export class DeepSeekStreamHandler {
                     let cleanedFragment = fragment.content.replace(/FINISHED/g, '')
                     cleanedFragment = cleanedFragment.replace(/^(SEARCH|WEB_SEARCH|SEARCHING)\s*/i, '')
                     if (fragment.type === 'THINK') {
-                      currentPath = 'thinking'
                       accumulatedThinkingContent += cleanedFragment
                     } else if (fragment.type === 'ANSWER' || fragment.type === 'RESPONSE') {
-                      currentPath = 'content'
                       accumulatedContent += cleanedFragment
                     }
                   }
@@ -478,6 +481,13 @@ export class DeepSeekStreamHandler {
 
         if (toolCalls.length > 0) {
           message.tool_calls = toolCalls
+        }
+
+        // Log for debugging
+        if (isThinkingModel || accumulatedThinkingContent) {
+          console.log('[DeepSeek] Non-stream thinking model:', this.model)
+          console.log('[DeepSeek] Accumulated thinking content length:', accumulatedThinkingContent.length)
+          console.log('[DeepSeek] Accumulated content length:', accumulatedContent.length)
         }
 
         resolve({
