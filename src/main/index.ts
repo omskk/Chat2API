@@ -4,12 +4,23 @@ import { createWindow, getMainWindow, loadUrl, loadFile, openDevTools } from './
 import { createTrayManager, TrayManager } from './tray/TrayManager'
 import { registerIpcHandlers } from './ipc/handlers'
 
+// Disable GPU hardware acceleration to reduce resource usage
+// This prevents the creation of GPU helper process which consumes significant resources
+// This app doesn't need GPU rendering as it's a background proxy manager
+app.disableHardwareAcceleration()
+
+// Additional GPU-related command line switches for resource optimization
+app.commandLine.appendSwitch('disable-gpu')
+app.commandLine.appendSwitch('disable-gpu-compositing')
+app.commandLine.appendSwitch('disable-software-rasterizer')
+app.commandLine.appendSwitch('disable-gpu-rasterization')
+app.commandLine.appendSwitch('disable-gpu-sandbox')
+
 // Workaround for V8 JIT compiler crash on macOS ARM64 (Electron 33 bug)
 // Completely disable JIT compilation to prevent EXC_BAD_ACCESS crashes
 // This trades some performance for stability
 if (process.platform === 'darwin' && process.arch === 'arm64') {
   app.commandLine.appendSwitch('js-flags', '--jitless --no-opt')
-  app.commandLine.appendSwitch('disable-gpu-sandbox')
 }
 
 // Automatically add --no-sandbox flag when running as root user
