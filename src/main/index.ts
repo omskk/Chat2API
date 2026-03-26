@@ -16,6 +16,11 @@ app.commandLine.appendSwitch('disable-software-rasterizer')
 app.commandLine.appendSwitch('disable-gpu-rasterization')
 app.commandLine.appendSwitch('disable-gpu-sandbox')
 
+// Disable additional features that may spawn GPU processes
+app.commandLine.appendSwitch('disable-features', 'VizDisplayCompositor,UseSkiaRenderer')
+app.commandLine.appendSwitch('in-process-gpu')
+app.commandLine.appendSwitch('disable-frame-rate-limit')
+
 // Workaround for V8 JIT compiler crash on macOS ARM64 (Electron 33 bug)
 // Completely disable JIT compilation to prevent EXC_BAD_ACCESS crashes
 // This trades some performance for stability

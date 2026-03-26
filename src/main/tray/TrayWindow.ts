@@ -38,8 +38,15 @@ export class TrayWindow {
         sandbox: false,
         nodeIntegration: false,
         contextIsolation: true,
+        backgroundThrottling: true,
+        offscreen: false,
+        spellcheck: false,
+        enableWebSQL: false,
       },
     })
+
+    // Enable background throttling to reduce resource usage when window is hidden
+    this.window.webContents.setBackgroundThrottling(true)
 
     if (process.env.NODE_ENV === 'development' && process.env.ELECTRON_RENDERER_URL) {
       this.window.loadURL(`${process.env.ELECTRON_RENDERER_URL}#tray`)

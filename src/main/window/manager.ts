@@ -34,6 +34,10 @@ export function createWindow(options: WindowOptions = {}): BrowserWindow {
       contextIsolation: true,
       sandbox: false,
       webSecurity: true,
+      backgroundThrottling: true,
+      offscreen: false,
+      spellcheck: false,
+      enableWebSQL: false,
     },
     title,
     show,
@@ -42,6 +46,9 @@ export function createWindow(options: WindowOptions = {}): BrowserWindow {
     backgroundColor: '#1a1a1a',
     icon: join(__dirname, '../../resources/icon.png'),
   })
+
+  // Disable unnecessary features to reduce resource usage
+  mainWindow.webContents.setBackgroundThrottling(true)
 
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
     shell.openExternal(url)
