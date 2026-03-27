@@ -34,10 +34,12 @@ export function createWindow(options: WindowOptions = {}): BrowserWindow {
       contextIsolation: true,
       sandbox: false,
       webSecurity: true,
-      backgroundThrottling: true,
+      backgroundThrottling: false, // Keep UI responsive when in background
       offscreen: false,
       spellcheck: false,
       enableWebSQL: false,
+      // Enable hardware acceleration for smoother rendering
+      experimentalFeatures: false,
     },
     title,
     show,
@@ -47,8 +49,9 @@ export function createWindow(options: WindowOptions = {}): BrowserWindow {
     icon: join(__dirname, '../../resources/icon.png'),
   })
 
-  // Disable unnecessary features to reduce resource usage
-  mainWindow.webContents.setBackgroundThrottling(true)
+  // Optimize rendering performance
+  // Don't throttle background tabs to keep UI responsive
+  mainWindow.webContents.setBackgroundThrottling(false)
 
   mainWindow.webContents.setWindowOpenHandler(({ url }) => {
     shell.openExternal(url)

@@ -152,181 +152,36 @@ body {
     color 0.3s ease;
 }
 
+/* Simplified background - no blur, no animation for better performance */
 [data-theme="dark"] .bokeh-bg {
-  background: radial-gradient(circle at 50% 50%, #0a0a0a 0%, #050505 100%);
-}
-
-[data-theme="dark"] .bokeh-bg::before {
-  background: radial-gradient(
-    circle,
-    rgba(59, 130, 246, 0.08) 0%,
-    transparent 60%
-  );
-}
-
-[data-theme="dark"] .bokeh-bg::after {
-  background: radial-gradient(
-    circle,
-    rgba(139, 92, 246, 0.06) 0%,
-    transparent 60%
-  );
-}
-
-[data-theme="dark"] .bokeh-blob-1 {
-  background: radial-gradient(
-    circle,
-    rgba(236, 72, 153, 0.05) 0%,
-    transparent 60%
-  );
-}
-
-[data-theme="dark"] .bokeh-blob-2 {
-  background: radial-gradient(
-    circle,
-    rgba(59, 130, 246, 0.04) 0%,
-    transparent 60%
-  );
+  background: #0a0a0f;
 }
 
 [data-theme="light"] .bokeh-bg {
-  background: linear-gradient(
-    160deg,
-    #f7f5f0 0%,
-    #f2efe8 35%,
-    #ede9e0 65%,
-    #f5f2eb 100%
-  );
-}
-
-[data-theme="light"] .bokeh-bg::before {
-  background: radial-gradient(
-    circle,
-    rgba(122, 158, 126, 0.08) 0%,
-    rgba(122, 158, 126, 0.03) 40%,
-    transparent 70%
-  );
-}
-
-[data-theme="light"] .bokeh-bg::after {
-  background: radial-gradient(
-    circle,
-    rgba(168, 180, 196, 0.07) 0%,
-    rgba(168, 180, 196, 0.02) 40%,
-    transparent 70%
-  );
-}
-
-[data-theme="light"] .bokeh-blob-1 {
-  background: radial-gradient(
-    circle,
-    rgba(212, 184, 150, 0.1) 0%,
-    rgba(212, 184, 150, 0.03) 40%,
-    transparent 70%
-  );
-}
-
-[data-theme="light"] .bokeh-blob-2 {
-  background: radial-gradient(
-    circle,
-    rgba(122, 158, 126, 0.06) 0%,
-    rgba(122, 158, 126, 0.02) 40%,
-    transparent 70%
-  );
+  background: #f7f5f0;
 }
 
 .bokeh-bg {
   position: fixed;
   inset: 0;
-  overflow: hidden;
   z-index: -1;
 }
 
-.bokeh-bg::before,
-.bokeh-bg::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(80px);
-  opacity: 0.6;
-  animation: float 25s ease-in-out infinite;
-}
-
-.bokeh-bg::before {
-  width: 500px;
-  height: 500px;
-  top: -150px;
-  right: -100px;
-}
-
-.bokeh-bg::after {
-  width: 400px;
-  height: 400px;
-  bottom: -100px;
-  left: -80px;
-  animation-delay: -12s;
-}
-
-.bokeh-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(100px);
-  opacity: 0.5;
-}
-
-.bokeh-blob-1 {
-  width: 350px;
-  height: 350px;
-  top: 40%;
-  left: 25%;
-  animation: float 30s ease-in-out infinite reverse;
-}
-
-.bokeh-blob-2 {
-  width: 280px;
-  height: 280px;
-  bottom: 25%;
-  right: 20%;
-  animation: float 22s ease-in-out infinite;
-  animation-delay: -8s;
-}
-
-@keyframes float {
-  0%,
-  100% {
-    transform: translate(0, 0) scale(1);
-  }
-  25% {
-    transform: translate(20px, -20px) scale(1.02);
-  }
-  50% {
-    transform: translate(-15px, 15px) scale(0.98);
-  }
-  75% {
-    transform: translate(15px, 8px) scale(1.01);
-  }
-}
+/* Removed animated blobs and blur effects for performance */
 
 .glass-card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
+  background: var(--bg-secondary);
   border: 1px solid var(--glass-border);
   border-radius: 16px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  isolation: isolate;
-  box-shadow: var(--soft-sm);
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 [data-theme="light"] .glass-card {
-  background: rgba(247, 245, 240, 0.75);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  border-radius: 24px;
-  box-shadow:
-    0 4px 12px rgba(166, 160, 148, 0.12),
-    inset 0 1px 0 rgba(255, 255, 255, 0.8);
-  transition: all 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  background: var(--bg-primary);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
 }
 
 .glass-card-hover:hover {
@@ -349,21 +204,17 @@ body {
 }
 
 .glass-sidebar {
-  background: color-mix(in srgb, var(--bg-primary) 70%, transparent);
-  backdrop-filter: blur(30px);
-  -webkit-backdrop-filter: blur(30px);
+  background: var(--bg-primary);
   border: 1px solid var(--glass-border);
   border-radius: 24px;
   margin: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 [data-theme="light"] .glass-sidebar {
-  background: rgba(247, 245, 240, 0.85);
-  box-shadow:
-    0 8px 32px rgba(166, 160, 148, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.6);
-  border: 1px solid rgba(200, 195, 185, 0.25);
+  background: var(--bg-primary);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  border: 1px solid var(--glass-border);
 }
 
 .nav-item {
@@ -406,22 +257,17 @@ body {
 }
 
 .glass-topbar {
-  background: color-mix(in srgb, var(--bg-primary) 80%, transparent);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  background: var(--bg-primary);
   border-bottom: 1px solid var(--glass-border);
 }
 
 [data-theme="light"] .glass-topbar {
-  background: rgba(247, 245, 240, 0.88);
-  box-shadow:
-    0 1px 0 rgba(200, 195, 185, 0.15),
-    0 4px 16px rgba(166, 160, 148, 0.06);
+  background: var(--bg-primary);
+  box-shadow: 0 1px 0 rgba(200, 195, 185, 0.1);
 }
 
 .glass-btn {
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
+  background: var(--bg-secondary);
   border: 1px solid var(--glass-border);
   color: var(--text-primary);
   padding: 10px 18px;
@@ -502,8 +348,7 @@ body {
 }
 
 .glass-input {
-  background: rgba(0, 0, 0, 0.2);
-  backdrop-filter: blur(10px);
+  background: var(--bg-secondary);
   border: 1px solid var(--glass-border);
   color: var(--text-primary);
   padding: 12px 16px;
@@ -541,8 +386,7 @@ body {
 }
 
 .metric-badge {
-  background: color-mix(in srgb, var(--bg-tertiary) 80%, transparent);
-  backdrop-filter: blur(10px);
+  background: var(--bg-tertiary);
   border: 1px solid var(--glass-border);
   border-radius: 10px;
   padding: 6px 12px;
@@ -696,8 +540,6 @@ body {
 
 .bg-overlay {
   background: var(--overlay-bg);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
 }
 
 .border-subtle {

@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useRef, useCallback, useMemo, memo } from 'react'
 import { useTranslation } from 'react-i18next'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import { Badge } from '@/components/ui/badge'
@@ -131,12 +131,17 @@ export function RequestLogList() {
     return `${(ms / 1000).toFixed(2)}s`
   }
 
-  const getStatusColor = (status: 'success' | 'error', statusCode: number) => {
+  const getStatusColor = useCallback((status: 'success' | 'error', statusCode: number) => {
     if (status === 'success') return 'bg-green-500/10 text-green-500 border-green-500/20'
     if (statusCode >= 500) return 'bg-red-500/10 text-red-500 border-red-500/20'
     if (statusCode >= 400) return 'bg-yellow-500/10 text-yellow-500 border-yellow-500/20'
     return 'bg-red-500/10 text-red-500 border-red-500/20'
-  }
+  }, [])
+
+  // Memoize click handlers to prevent recreating functions on each render
+  const handleLogClick = useCallback((log: RequestLogEntry) => {
+    setSelectedLog(log)
+  }, [])
 
   return (
     <div className="flex flex-col h-full">
