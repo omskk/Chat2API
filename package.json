@@ -238,7 +238,8 @@
     "publish": {
       "provider": "github",
       "owner": "omskk",
-      "repo": "Chat2API"
+      "repo": "Chat2API",
+      "releaseType": "release"
     }
   }
 }
